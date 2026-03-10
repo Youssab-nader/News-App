@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/Features/Splash%20Screen/spash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,7 +8,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -15,7 +15,11 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, _) {
-        return MaterialApp(title: 'News App', home: const MainPage());
+        return MaterialApp(
+          title: 'News App',
+          debugShowCheckedModeBanner: false,
+          home: const MainPage(),
+        );
       },
     );
   }
@@ -31,6 +35,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const SplashScreen();
   }
 }
