@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/Features/Splash%20Screen/spash_screen.dart';
+import 'package:news_app/Features/Onboarding/onboarding_screen.dart';
+import 'package:news_app/core/Style/app_thems.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       builder: (_, _) {
         return MaterialApp(
           title: 'News App',
+          theme: AppThems.lightThem,
           debugShowCheckedModeBanner: false,
           home: const MainPage(),
         );
@@ -25,16 +27,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  @override
   Widget build(BuildContext context) {
-    return const SplashScreen();
+    return const OnbordingScreen();
   }
 }

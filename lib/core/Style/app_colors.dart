@@ -9,6 +9,7 @@ class AppColors {
   static final Color grey4E4 =const Color(0xff4E4B66);
   static final Color grey6E7 =const Color(0xff6E7191);
   static final Color grey6D6 =const Color(0xff6D6D6D);
+  static final Color greyD3D =const Color(0xffD3D3D3);
   static final Color whiteTexts =const Color(0xffFFFCFC);
 
 }
