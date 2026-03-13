@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/Features/Auth/Sign_in/login_screen.dart';
 import 'package:news_app/Features/Onboarding/Models/onboarding_controller.dart';
 import 'package:news_app/Features/Onboarding/Models/onboarding_widgets_model.dart';
 import 'package:news_app/core/Style/app_text_styles.dart';
@@ -14,7 +15,13 @@ class OnbordingScreen extends StatefulWidget {
 }
 
 class _OnbordingScreenState extends State<OnbordingScreen> {
-  PageController? controller = PageController();
+  PageController controller = PageController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +29,27 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
     return ChangeNotifierProvider(
       create: (BuildContext context) => OnboardingController(),
       builder: (context, child) {
-        int pageIndex = context.watch<OnboardingController>().pageIndex;
         return Scaffold(
           appBar: AppBar(
             actions: [
               Padding(
                 padding: EdgeInsetsGeometry.symmetric(horizontal: 20.w),
                 child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    (pageIndex == 3) ? '' : 'Skip',
-                    style: AppTextStyles.skipText,
+                  onPressed: () {
+                    controller.jumpToPage(2);
+                  },
+                  child: Consumer(
+                    builder:
+                        (
+                          BuildContext context,
+                          OnboardingController onboardingController,
+                          Widget? child,
+                        ) {
+                          return Text(
+                            (onboardingController.pageIndex == 2) ? '' : 'Skip',
+                            style: AppTextStyles.skipText,
+                          );
+                        },
                   ),
                 ),
               ),
@@ -95,17 +112,38 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                 Spacer(),
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(vertical: 20.h),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      controller!.nextPage(
-                        duration: Durations.medium1,
-                        curve: Curves.ease,
-                      );
-                    },
-                    child: Text(
-                      (pageIndex == 3) ? 'Get Started' : 'Next',
-                      style: AppTextStyles.buttonText,
-                    ),
+                  child: Consumer(
+                    builder:
+                        (
+                          BuildContext context,
+                          OnboardingController onboardingController,
+                          Widget? child,
+                        ) {
+                          return ElevatedButton(
+                            onPressed: (onboardingController.pageIndex != 2)
+                                ? () {
+                                    controller.nextPage(
+                                      duration: Durations.medium1,
+                                      curve: Curves.ease,
+                                    );
+                                  }
+                                : () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            LoginScreen(),
+                                      ),
+                                    );
+                                  },
+                            child: Text(
+                              (onboardingController.pageIndex == 2)
+                                  ? 'Get Started'
+                                  : 'Next',
+                              style: AppTextStyles.buttonText,
+                            ),
+                          );
+                        },
                   ),
                 ),
               ],
