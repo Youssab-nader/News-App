@@ -1,3 +1,5 @@
+import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
+
 import 'package:flutter/material.dart';
 import 'package:news_app/core/Data/Remote_data/api_config.dart';
 import 'package:news_app/core/Data/Remote_data/api_service.dart';
@@ -15,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   ApiService apiService = ApiService();
   List<ArticleModel> allArts = [];
+  bool isLoading = true;
+  String? em;
 
   @override
   void initState() {
@@ -23,26 +27,35 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _loadNews() async {
-    final Map<String, dynamic> arteclesJson = await apiService.get(
-      ApiConfig.everyThing,
-      params: {'q': 'all'},
-    );
-    setState(() {
-      if (arteclesJson.isNotEmpty) {
-        allArts = (arteclesJson[ApiConfig.articlesKey] as List)
-            .map((a) => ArticleModel.fromJson(a))
-            .toList();
-      }
-    });
+    try {
+      final Map<String, dynamic> arteclesJson = await apiService.get(
+        ApiConfig.everyThing,
+        params: {'q': 'all'},
+      );
+      setState(() {
+        if (arteclesJson.isNotEmpty) {
+          allArts = (arteclesJson[ApiConfig.articlesKey] as List)
+              .map((a) => ArticleModel.fromJson(a))
+              .toList();
+          isLoading = true;
+          em = null;
+        }
+      });
+    } catch (e) {
+      isLoading = false;
+      em = e.toString();
+      throw 'Fieled to load Data';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: (allArts.isEmpty)
-            ? SizedBox()
-            : Padding(
+        child: (allArts.isEmpty || isLoading)
+            ? CircularProgressIndicator()
+            : (em == null)
+            ? Padding(
                 padding: EdgeInsetsGeometry.all(16),
                 child: ListView.builder(
                   itemCount: allArts.length,
@@ -53,7 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                 ),
-              ),
+              )
+            : Text('$em'),
       ),
     );
   }
