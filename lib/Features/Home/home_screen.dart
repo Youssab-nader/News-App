@@ -1,8 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:news_app/core/Data/Remote_data/api_service.dart';
+
 import 'package:news_app/core/Models/article_model.dart';
+import 'package:news_app/core/Style/app_text_styles.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,28 +12,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  ApiService apiService = ApiService();
   List<ArticleModel> allArts = [];
 
   @override
   void initState() {
-    _loadNews();
     super.initState();
+    _loadNews();
   }
 
   void _loadNews() async {
-    var url = Uri.https('newsapi.org', 'v2/everything', {
-      'apiKey': "32e73a68843c44f3bc5ab850983ec22d",
-      'q': "bitcoin",
-    });
-
-    final http.Response respons = await http.get(url);
-    final Map<String, dynamic> newsJson =
-        jsonDecode(respons.body) as Map<String, dynamic>;
-    final List<dynamic> articlesJson = newsJson['articles'];
-
+    final Map<String, dynamic> arteclesJson = await apiService.get(
+      'v2/everything?q=all&apiKey=32e73a68843c44f3bc5ab850983ec22d',
+    );
     setState(() {
-      allArts = articlesJson
-          .map((article) => ArticleModel.fromJson(article))
+      allArts = (arteclesJson["articles"] as List)
+          .map((a) => ArticleModel.fromJson(a))
           .toList();
     });
   }
@@ -42,12 +36,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ListView.builder(
-          itemCount: allArts.length,
-          itemBuilder: (context, index) {
-            return allArts.isEmpty ? SizedBox() : Text(allArts[index].author);
-          },
-        ),
+        child: (allArts.isEmpty)
+            ? SizedBox()
+            : Padding(
+                padding: EdgeInsetsGeometry.all(16),
+                child: ListView.builder(
+                  itemCount: allArts.length,
+                  itemBuilder: (context, index) {
+                    return Text(
+                      allArts[index].title,
+                      style: AppTextStyles.primaryStyle,
+                    );
+                  },
+                ),
+              ),
       ),
     );
   }
