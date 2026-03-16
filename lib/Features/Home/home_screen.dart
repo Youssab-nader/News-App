@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/Data/Remote_data/api_config.dart';
 import 'package:news_app/core/Data/Remote_data/api_service.dart';
 
 import 'package:news_app/core/Models/article_model.dart';
@@ -23,12 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _loadNews() async {
     final Map<String, dynamic> arteclesJson = await apiService.get(
-      'everything',
+      ApiConfig.everyThing,
       params: {'q': 'all'},
     );
     setState(() {
       if (arteclesJson.isNotEmpty) {
-        allArts = (arteclesJson["articles"] as List)
+        allArts = (arteclesJson[ApiConfig.articlesKey] as List)
             .map((a) => ArticleModel.fromJson(a))
             .toList();
       }
