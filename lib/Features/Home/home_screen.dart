@@ -23,12 +23,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _loadNews() async {
     final Map<String, dynamic> arteclesJson = await apiService.get(
-      'v2/everything?q=all&apiKey=32e73a68843c44f3bc5ab850983ec22d',
+      'everything',
+      params: {'q': 'all'},
     );
     setState(() {
-      allArts = (arteclesJson["articles"] as List)
-          .map((a) => ArticleModel.fromJson(a))
-          .toList();
+      if (arteclesJson.isNotEmpty) {
+        allArts = (arteclesJson["articles"] as List)
+            .map((a) => ArticleModel.fromJson(a))
+            .toList();
+      }
     });
   }
 
