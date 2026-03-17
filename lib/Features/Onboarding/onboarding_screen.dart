@@ -34,7 +34,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
           appBar: AppBar(
             actions: [
               Padding(
-                padding: EdgeInsetsGeometry.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: TextButton(
                   onPressed: () {
                     controller.jumpToPage(2);
