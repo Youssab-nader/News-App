@@ -5,15 +5,16 @@ import 'package:news_app/core/Data/Remote_data/api_config.dart';
 
 class ApiService {
   Future<dynamic> get(String endPoint, {Map<String, dynamic>? params}) async {
-    try {
-      var url = Uri.http(ApiConfig.baseUrl, 'v2/$endPoint', {
-        'apiKey': ApiConfig.key,
-        ...?params,
-      });
-      final http.Response response = await http.get(url);
+    var url = Uri.https(ApiConfig.baseUrl,'v2/$endPoint', {
+      'apiKey': ApiConfig.key,
+      ...?params,
+    });
+    final http.Response response = await http.get(url);
+    print('The Url => $url');
+    if (response.statusCode == 200) {
       return jsonDecode(response.body) as Map<String, dynamic>;
-    } catch (e) {
-      throw 'Failed $e';
+    } else {
+      throw Exception('Error ${response.statusCode}: ${response.body}');
     }
   }
 }
