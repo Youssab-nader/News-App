@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   ApiService apiService = ApiService();
   List<ArticleModel> allArts = [];
-  //   bool isLoading = true;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -29,29 +29,32 @@ class _HomeScreenState extends State<HomeScreen> {
       ApiConfig.everyThing,
       params: {'q': ApiConfig.q},
     );
+
     setState(() {
       allArts = (arteclesJson[ApiConfig.articlesKey] as List)
           .map((a) => ArticleModel.fromJson(a))
           .toList();
-      //   isLoading = false;
+      isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(16.r),
-        child: ListView.builder(
-          itemCount: allArts.length,
-          itemBuilder: (context, index) {
-            return Text(
-              allArts[index].title,
-              style: AppTextStyles.primaryStyle,
-            );
-          },
-        ),
-      ),
+      body: !isLoading
+          ? Padding(
+              padding: EdgeInsets.all(16.r),
+              child: ListView.builder(
+                itemCount: allArts.length,
+                itemBuilder: (context, index) {
+                  return Text(
+                    allArts[index].title,
+                    style: AppTextStyles.primaryStyle,
+                  );
+                },
+              ),
+            )
+          : Center(child: const CircularProgressIndicator()),
     );
   }
 }
