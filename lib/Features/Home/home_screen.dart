@@ -17,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ApiService apiService = ApiService();
   List<ArticleModel> allArts = [];
   bool isLoading = true;
+  String? errorMessage;
 
   @override
   void initState() {
@@ -25,24 +26,37 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _loadNews() async {
-    final Map<String, dynamic> arteclesJson = await apiService.get(
-      ApiConfig.everyThing,
-      params: {'q': ApiConfig.q},
-    );
+    try {
+      final Map<String, dynamic> arteclesJson = await apiService.get(
+        ApiConfig.everyThing,
+        params: {'q': ApiConfig.q},
+      );
 
-    setState(() {
-      allArts = (arteclesJson[ApiConfig.articlesKey] as List)
-          .map((a) => ArticleModel.fromJson(a))
-          .toList();
-      isLoading = false;
-    });
+      setState(() {
+        allArts = (arteclesJson[ApiConfig.articlesKey] as List)
+            .map((a) => ArticleModel.fromJson(a))
+            .toList();
+        isLoading = false;
+        errorMessage = null;
+      });
+    } catch (error) {
+      setState(() {
+        isLoading = false;
+        errorMessage = error.toString();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: !isLoading
-          ? Padding(
+      body: isLoading
+          ? Center(child: const CircularProgressIndicator())
+          : (errorMessage != null)
+          ? Center(
+              child: Text('##############Error############# \n $errorMessage'),
+            )
+          : Padding(
               padding: EdgeInsets.all(16.r),
               child: ListView.builder(
                 itemCount: allArts.length,
@@ -53,8 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-            )
-          : Center(child: const CircularProgressIndicator()),
+            ),
     );
   }
 }
