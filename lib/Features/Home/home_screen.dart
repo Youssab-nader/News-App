@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
                       : (controller.errorMessage != null)
                       ? Center(
                           child: Text(
-                            '##############Error############# \n ${controller.errorMessage}',
+                            ' ${controller.errorMessage}',
                           ),
                         )
                       : Padding(
