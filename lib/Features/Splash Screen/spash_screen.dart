@@ -28,14 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: false,
-<<<<<<< HEAD
-      body: SizedBox.expand(child: Image.asset('assets/Images/splash_image.png')),
-=======
       body: SizedBox.expand(
         child: Image.asset('assets/Images/splash_image.png'),
       ),
->>>>>>> main
     );
   }
 }
