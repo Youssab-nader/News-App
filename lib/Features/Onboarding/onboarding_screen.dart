@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/Features/Auth/Sign_in/login_screen.dart';
-import 'package:news_app/Features/Home/home_screen.dart';
+import 'package:news_app/Features/Auth/login_screen.dart';
 import 'package:news_app/Features/Onboarding/Models/onboarding_controller.dart';
 import 'package:news_app/Features/Onboarding/Models/onboarding_widgets_model.dart';
 import 'package:news_app/core/Style/app_text_styles.dart';
@@ -133,7 +132,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            HomeScreen(),
+                                            LoginScreen(),
                                       ),
                                     );
                                   },

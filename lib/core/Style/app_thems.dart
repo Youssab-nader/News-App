@@ -11,6 +11,7 @@ class AppThems {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
+
         fixedSize: Size(343.w, 48.h),
         side: BorderSide(style: BorderStyle.none),
         shape: RoundedRectangleBorder(
