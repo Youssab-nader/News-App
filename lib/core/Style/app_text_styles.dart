@@ -23,7 +23,7 @@ class AppTextStyles {
 
   static final TextStyle primaryStyle = TextStyle(
     fontSize: 16.sp,
-    color: AppColors.grey6D6,
+    color: AppColors.primaryText,
     fontWeight: FontWeight.w400,
   );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/Features/Auth/login_screen.dart';
 import 'package:news_app/Features/Splash%20Screen/spash_screen.dart';
 import 'package:news_app/core/Style/app_thems.dart';
 
@@ -32,6 +33,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SplashScreen();
+    return LoginScreen();
   }
 }
