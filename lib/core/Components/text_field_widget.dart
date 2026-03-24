@@ -32,9 +32,10 @@ class TextFieldWidget extends StatefulWidget {
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
 
-bool disPass = false;
-
 class _TextFieldWidgetState extends State<TextFieldWidget> {
+  bool disPass = false;
+  @override
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -70,7 +71,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             controller: widget.textController,
             validator: widget.validationString,
             maxLines: widget.maxLines ?? 1,
-            obscureText: !(widget.isPassword && disPass),
+            obscureText: (widget.isPassword && !disPass),
             cursorColor: AppColors.primaryText,
             decoration: InputDecoration(
               hintText: widget.hintText,
@@ -87,9 +88,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               ),
               suffixIcon: widget.isPassword
                   ? IconButton(
-                      icon: disPass
-                          ? Icon(Icons.visibility_sharp)
-                          : Icon(Icons.visibility_off_sharp),
+                      icon: !disPass
+                          ? Icon(Icons.visibility_off_sharp)
+                          : Icon(Icons.visibility_sharp),
                       onPressed: () {
                         setState(() {
                           disPass = !disPass;
