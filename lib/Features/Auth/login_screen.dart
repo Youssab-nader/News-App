@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:news_app/Features/Auth/auth_service.dart';
 import 'package:news_app/Features/Auth/sign_up_screen.dart';
 import 'package:news_app/Features/Home/home_screen.dart';
 import 'package:news_app/core/Components/text_field_widget.dart';
+import 'package:news_app/core/Config/app_keys_config.dart';
+import 'package:news_app/core/Data/Local_data/local_storage_service%20copy.dart';
+import 'package:news_app/core/Models/user_model%20copy.dart';
 import 'package:news_app/core/Models/validations_config.dart';
 import 'package:news_app/core/Style/app_colors.dart';
 import 'package:news_app/core/Style/app_text_styles.dart';
@@ -12,9 +18,9 @@ import 'package:news_app/core/Widgets/spacing_widget.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -45,38 +51,50 @@ class LoginScreen extends StatelessWidget {
                   child: Text(
                     'Welcome to Newst',
                     style: AppTextStyles.splashTop.copyWith(
-                      color: AppColors.secondryText,
+                      color: AppColors.secondaryText,
                     ),
                   ),
                 ),
                 HightSpacing(hight: 16),
+
                 TextFieldWidget(
                   labelText: 'Email',
-                  hintText: 'user@email.com',
-                  textController: emailController,
-                  validationString: ValidationsConfig.emailValidation(
-                    emailController.text,
-                  ),
+                  hintText: ' user@email.com',
+                  textController: _emailController,
+                  validationString: ValidationsConfig.emailValidation,
                 ),
+
                 TextFieldWidget(
                   labelText: 'Password',
                   hintText: '*********',
-                  textController: passwordController,
-                  validationString: ValidationsConfig.passwordValidation(
-                    passwordController.text,
-                  ),
+                  textController: _passwordController,
+                  validationString: ValidationsConfig.passwordValidation,
                   isPassword: true,
                 ),
+
                 HightSpacing(hight: 8),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if ((_formKey.currentState?.validate() ?? false)) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => HomeScreen(),
-                        ),
+                      AuthService login = AuthService();
+                      final bool success = await login.isLogin(
+                        email: _emailController.text,
+                        password: _passwordController.text,
                       );
+                      if (success) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => HomeScreen(),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Email or password incorrect"),
+                          ),
+                        );
+                      }
                     }
                   },
                   child: Text('Sign in', style: AppTextStyles.buttonText),
