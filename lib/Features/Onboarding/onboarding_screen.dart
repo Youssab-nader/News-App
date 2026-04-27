@@ -30,6 +30,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
       create: (BuildContext context) => OnboardingController(),
       builder: (context, child) {
         return Scaffold(
+          
           appBar: AppBar(
             actions: [
               Padding(

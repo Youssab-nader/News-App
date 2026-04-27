@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/Features/Auth/login_screen.dart';
+import 'package:news_app/Features/Auth/auth_service.dart';
+import 'package:news_app/Features/Home/home_screen.dart';
 import 'package:news_app/Features/Splash%20Screen/spash_screen.dart';
+import 'package:news_app/core/Data/Local_data/local_storage_service%20copy.dart';
 import 'package:news_app/core/Style/app_thems.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PreferencesManager().init();
   runApp(const MyApp());
 }
 
@@ -21,7 +25,7 @@ class MyApp extends StatelessWidget {
           title: 'News App',
           theme: AppThems.lightThem,
           debugShowCheckedModeBanner: false,
-          home: const MainPage(),
+          home:  MainPage(),
         );
       },
     );
@@ -29,10 +33,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  MainPage({super.key});
 
+  final bool isLogin = AuthService().isSaved();
   @override
   Widget build(BuildContext context) {
-    return LoginScreen();
+    return isLogin ? HomeScreen() : SplashScreen();
   }
 }

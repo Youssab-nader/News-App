@@ -5,8 +5,8 @@ import 'package:news_app/core/Style/app_fonts.dart';
 
 class AppThems {
   static ThemeData lightThem = ThemeData(
-    scaffoldBackgroundColor: AppColors.backGroungF5,
-    appBarTheme: AppBarTheme(backgroundColor: AppColors.backGroungF5),
+    scaffoldBackgroundColor: AppColors.backGroundF5,
+    appBarTheme: AppBarTheme(backgroundColor: AppColors.backGroundF5),
     fontFamily: AppFonts.primary,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

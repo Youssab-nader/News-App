@@ -10,6 +10,7 @@ class TextFieldWidget extends StatefulWidget {
   final String labelText;
   final String? labelIconPath;
   final String hintText;
+  final void Function(String?)? onChange;
   final TextEditingController? textController;
   String? starIcon;
   int? maxLines;
@@ -26,6 +27,7 @@ class TextFieldWidget extends StatefulWidget {
     this.validationString,
     this.textController,
     this.labelIconPath,
+    this.onChange,
   });
 
   @override
@@ -35,7 +37,6 @@ class TextFieldWidget extends StatefulWidget {
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   bool disPass = false;
   @override
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -63,42 +64,48 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           ],
         ),
         HightSpacing(hight: 5),
-        SizedBox(
-          width: 343.w,
-          height: 56.h,
-          child: TextFormField(
-            keyboardType: TextInputType.name,
-            controller: widget.textController,
-            validator: widget.validationString,
-            maxLines: widget.maxLines ?? 1,
-            obscureText: (widget.isPassword && !disPass),
-            cursorColor: AppColors.primaryText,
-            decoration: InputDecoration(
-              hintText: widget.hintText,
-              filled: true,
-              fillColor: AppColors.whiteTexts,
-              border: InputBorder.none,
-              hintStyle: AppTextStyles.primaryStyle.copyWith(
-                color: AppColors.secondryText,
-              ),
-              errorStyle: TextStyle(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-              suffixIcon: widget.isPassword
-                  ? IconButton(
-                      icon: !disPass
-                          ? Icon(Icons.visibility_off_sharp)
-                          : Icon(Icons.visibility_sharp),
-                      onPressed: () {
-                        setState(() {
-                          disPass = !disPass;
-                        });
-                      },
-                    )
-                  : null,
+        TextFormField(
+          onChanged: widget.onChange,
+          controller: widget.textController,
+          validator: widget.validationString,
+          obscureText: (widget.isPassword && !disPass),
+          cursorColor: AppColors.primaryText,
+          decoration: InputDecoration(
+            hintText: widget.hintText,
+            filled: true,
+            fillColor: AppColors.whiteTexts,
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(12),
             ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            hintStyle: AppTextStyles.primaryStyle.copyWith(
+              color: AppColors.secondaryText,
+            ),
+            errorStyle: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+            suffixIcon: widget.isPassword
+                ? IconButton(
+                    icon: !disPass
+                        ? Icon(Icons.visibility_off_sharp)
+                        : Icon(Icons.visibility_sharp),
+                    onPressed: () {
+                      setState(() {
+                        disPass = !disPass;
+                      });
+                    },
+                  )
+                : null,
           ),
         ),
         HightSpacing(hight: 12),
