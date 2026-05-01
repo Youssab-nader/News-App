@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:news_app/Features/Book_Mark/main_screen.dart';
 import 'package:news_app/Features/Home/home_screen.dart';
 import 'package:news_app/core/Components/text_field_widget.dart';
 import 'package:news_app/core/Config/app_keys_config.dart';
@@ -95,7 +96,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         );
                         await Future.delayed(Duration(seconds: 2));
-                        Navigator.pushReplacement(context , MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+                        Navigator.pushReplacement(context , MaterialPageRoute(builder: (BuildContext context) => MainScreen()));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

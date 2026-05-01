@@ -13,8 +13,8 @@ class HomeController extends ChangeNotifier {
   String? errorMessage;
 
   HomeController() {
-    getEveryThing();
-    // getTopHeadLine();
+    // getEveryThing();
+    getTopHeadLine();
   }
 
   void getEveryThing() async {
@@ -32,6 +32,7 @@ class HomeController extends ChangeNotifier {
     } catch (error) {
       everyThindLoading = false;
       errorMessage = error.toString();
+      Exception(errorMessage);
     }
 
     notifyListeners();
@@ -47,12 +48,12 @@ class HomeController extends ChangeNotifier {
       topHeadLineNews = (arteclesJson[ApiConfig.articlesKey] as List)
           .map((a) => ArticleModel.fromJson(a))
           .toList();
-
       toHeadLineLoading = false;
       errorMessage = null;
     } catch (error) {
       everyThindLoading = false;
       errorMessage = error.toString();
+      Exception(errorMessage);
     }
 
     notifyListeners();

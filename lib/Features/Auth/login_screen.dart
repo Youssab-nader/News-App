@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/Features/Auth/auth_service.dart';
 import 'package:news_app/Features/Auth/sign_up_screen.dart';
+import 'package:news_app/Features/Book_Mark/main_screen.dart';
 import 'package:news_app/Features/Home/home_screen.dart';
 import 'package:news_app/core/Components/text_field_widget.dart';
 import 'package:news_app/core/Config/app_keys_config.dart';
@@ -85,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => HomeScreen(),
+                            builder: (BuildContext context) => MainScreen(),
                           ),
                         );
                       } else {

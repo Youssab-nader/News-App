@@ -20,6 +20,27 @@ class AppTextStyles {
     color: AppColors.primary,
     fontWeight: FontWeight.w400,
   );
+  static final TextStyle underLined = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.whiteTexts,
+    decoration: TextDecoration.underline,
+    decorationColor: AppColors.whiteTexts,
+    decorationThickness: 2,
+    decorationStyle: TextDecorationStyle.solid,
+  );
+
+  static final TextStyle selectedLabelStyle = TextStyle(
+    fontSize: 12.sp,
+    color: AppColors.primary,
+    fontWeight: FontWeight.w700,
+  );
+
+  static final TextStyle unselectedLabelStyle = TextStyle(
+    fontSize: 12.sp,
+    color: AppColors.secondaryText,
+    fontWeight: FontWeight.w700,
+  );
 
   static final TextStyle primaryStyle = TextStyle(
     fontSize: 16.sp,

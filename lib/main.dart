@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/Features/Auth/auth_service.dart';
-import 'package:news_app/Features/Home/home_screen.dart';
+import 'package:news_app/Features/Book_Mark/main_screen.dart';
 import 'package:news_app/Features/Splash%20Screen/spash_screen.dart';
 import 'package:news_app/core/Data/Local_data/local_storage_service%20copy.dart';
 import 'package:news_app/core/Style/app_thems.dart';
@@ -38,6 +38,6 @@ class MainPage extends StatelessWidget {
   final bool isLogin = AuthService().isSaved();
   @override
   Widget build(BuildContext context) {
-    return isLogin ? HomeScreen() : SplashScreen();
+    return isLogin ? MainScreen() : SplashScreen();
   }
 }
