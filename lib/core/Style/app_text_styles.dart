@@ -15,6 +15,22 @@ class AppTextStyles {
     fontWeight: FontWeight.w700,
   );
 
+  static final TextStyle selectedCategoryStyle = TextStyle(
+    fontSize: 16.sp,
+    color: AppColors.primary,
+    fontWeight: FontWeight.w400,
+ 
+
+    decorationThickness: 2,
+    decorationStyle: TextDecorationStyle.solid,
+  );
+
+  static final TextStyle unSelectedCategoryStyle = TextStyle(
+    fontSize: 16.sp,
+    color: AppColors.secondaryText,
+    fontWeight: FontWeight.w400,
+  );
+
   static final TextStyle skipText = TextStyle(
     fontSize: 14.sp,
     color: AppColors.primary,

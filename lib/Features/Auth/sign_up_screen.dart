@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:news_app/Features/Book_Mark/main_screen.dart';
-import 'package:news_app/Features/Home/home_screen.dart';
+
 import 'package:news_app/core/Components/text_field_widget.dart';
 import 'package:news_app/core/Config/app_keys_config.dart';
 import 'package:news_app/core/Data/Local_data/local_storage_service%20copy.dart';
@@ -24,9 +23,8 @@ class SignUpScreen extends StatelessWidget {
   final TextEditingController _confPasswordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String? tempPass;
-  String? errorMassage;
-
+  // String? tempPass;
+  //  final String? errorMassage = null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,9 +69,9 @@ class SignUpScreen extends StatelessWidget {
                   textController: _passwordController,
                   validationString: ValidationsConfig.passwordValidation,
                   isPassword: true,
-                  onChange: (value) {
-                    tempPass = value;
-                  },
+                  // onChange: (value) {
+                  //   tempPass = value;
+                  // },
                 ),
 
                 TextFieldWidget(
@@ -89,7 +87,6 @@ class SignUpScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     if ((_formKey.currentState?.validate() ?? false)) {
-                      
                       if (await signUp()) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -101,9 +98,7 @@ class SignUpScreen extends StatelessWidget {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Center(
-                              child: Text(errorMassage ?? ' Sign up Failed'),
-                            ),
+                            content: Center(child: Text(' Sign up Failed')),
                           ),
                         );
                       }

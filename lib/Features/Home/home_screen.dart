@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/Features/Home/Models/home_controller.dart';
+import 'package:news_app/Features/Home/Widgets/categories_widget.dart';
 import 'package:news_app/Features/Home/Widgets/top_line_news_widget.dart';
 import 'package:news_app/core/Models/article_model.dart';
 import 'package:news_app/core/Style/app_colors.dart';
@@ -137,7 +138,8 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 12.h),
+                            CategoriesWidget(),
+                            SizedBox(height: 16.h),
                           ],
                         ),
                 );
