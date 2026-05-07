@@ -4,7 +4,7 @@ import 'package:news_app/core/Data/Remote_data/api_service.dart';
 import 'package:news_app/core/Models/article_model.dart';
 
 class HomeController extends ChangeNotifier {
-  bool toHeadLineLoading = true;
+  bool topHeadLineLoading = true;
   bool everyThindLoading = true;
 
   ApiService apiService = ApiService();
@@ -13,8 +13,8 @@ class HomeController extends ChangeNotifier {
   String? errorMessage;
 
   HomeController() {
-    // getEveryThing();
-    getTopHeadLine();
+    getEveryThing();
+    // getTopHeadLine();
   }
 
   void getEveryThing() async {
@@ -48,7 +48,7 @@ class HomeController extends ChangeNotifier {
       topHeadLineNews = (arteclesJson[ApiConfig.articlesKey] as List)
           .map((a) => ArticleModel.fromJson(a))
           .toList();
-      toHeadLineLoading = false;
+      topHeadLineLoading = false;
       errorMessage = null;
     } catch (error) {
       everyThindLoading = false;

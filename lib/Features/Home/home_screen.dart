@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/Features/Home/Models/home_controller.dart';
 import 'package:news_app/Features/Home/Widgets/top_line_news_widget.dart';
+import 'package:news_app/core/Models/article_model.dart';
 import 'package:news_app/core/Style/app_colors.dart';
 import 'package:news_app/core/Style/app_text_styles.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -17,8 +19,10 @@ class HomeScreen extends StatelessWidget {
         return Consumer<HomeController>(
           builder:
               (BuildContext context, HomeController controller, Widget? child) {
+                final List<ArticleModel> articles = controller.everyThingNews;
+
                 return Scaffold(
-                  body: controller.toHeadLineLoading
+                  body: (controller.everyThindLoading)
                       ? Center(child: const CircularProgressIndicator())
                       : (controller.errorMessage != null)
                       ? Center(child: Text(' ${controller.errorMessage}'))
@@ -77,27 +81,21 @@ class HomeScreen extends StatelessWidget {
                                           height: 140.h,
                                           width: double.infinity,
                                           child: ListView.builder(
-                                            itemCount: controller
-                                                .topHeadLineNews
-                                                .length,
+                                            itemCount: articles.length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder:
-                                                (BuildContext context, int index) {
-                                                  final String src =  controller
-                                                      .topHeadLineNews[index]
-                                                      .urlToImage;
-                                                 
-
-                                                  final String
-                                                  pubAt = controller
-                                                      .topHeadLineNews[index]
-                                                      .publishedAt;
-                                                  final String
-                                                  title = controller
-                                                      .topHeadLineNews[index]
-                                                      .title;
+                                                (
+                                                  BuildContext context,
+                                                  int index,
+                                                ) {
+                                                  final String pubAt =
+                                                      articles[index]
+                                                          .publishedAt;
+                                                  final String title =
+                                                      articles[index].title;
                                                   return TopLineNewsWidget(
-                                                    imageSrc: src,
+                                                    imageSrc: articles[index]
+                                                        .urlToImage,
                                                     title: title,
                                                     publishedAt: pubAt,
                                                   );

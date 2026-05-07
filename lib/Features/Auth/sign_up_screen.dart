@@ -89,6 +89,7 @@ class SignUpScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     if ((_formKey.currentState?.validate() ?? false)) {
+                      
                       if (await signUp()) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -96,7 +97,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         );
                         await Future.delayed(Duration(seconds: 2));
-                        Navigator.pushReplacement(context , MaterialPageRoute(builder: (BuildContext context) => MainScreen()));
+                        Navigator.pop(context);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
