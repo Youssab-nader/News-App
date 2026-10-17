@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:news_app/core/Models/user_model%20copy.dart';
+import 'package:news_app/core/Models/user_model.dart';
 import 'package:news_app/core/Models/validation_massages.dart';
 
 class ValidationsConfig {

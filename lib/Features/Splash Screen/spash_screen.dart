@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/Features/Auth/auth_service.dart';
-import 'package:news_app/Features/Book_Mark/main_screen.dart';
+import 'package:news_app/Features/Home/main_screen.dart';
 import 'package:news_app/Features/Onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {

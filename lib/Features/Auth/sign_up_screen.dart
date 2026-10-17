@@ -6,8 +6,8 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:news_app/core/Components/text_field_widget.dart';
 import 'package:news_app/core/Config/app_keys_config.dart';
-import 'package:news_app/core/Data/Local_data/local_storage_service%20copy.dart';
-import 'package:news_app/core/Models/user_model%20copy.dart';
+import 'package:news_app/core/Data/Local_data/local_storage_service.dart';
+import 'package:news_app/core/Models/user_model.dart';
 import 'package:news_app/core/Models/validations_config.dart';
 import 'package:news_app/core/Style/app_colors.dart';
 import 'package:news_app/core/Style/app_text_styles.dart';

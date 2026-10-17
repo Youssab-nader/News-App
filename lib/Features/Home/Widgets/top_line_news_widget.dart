@@ -6,11 +6,13 @@ class TopLineNewsWidget extends StatelessWidget {
   final String imageSrc;
   final String title;
   final String publishedAt;
+  final String publishedFrom;
   const TopLineNewsWidget({
     super.key,
     required this.imageSrc,
     required this.title,
     required this.publishedAt,
+    required this.publishedFrom,
   });
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,7 @@ class TopLineNewsWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      publishedFrom(),
+                      publishedFrom,
                       style: AppTextStyles.buttonText.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -83,20 +85,5 @@ class TopLineNewsWidget extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String publishedFrom() {
-    DateTime publishedTime = DateTime.parse(publishedAt);
-    DateTime now = DateTime.now().toUtc();
-    Duration diff = now.difference(publishedTime);
-    if (diff.inSeconds < 60) {
-      return "Just now";
-    } else if (diff.inMinutes < 60) {
-      return "${diff.inMinutes} minutes ago";
-    } else if (diff.inHours < 24) {
-      return "${diff.inHours} hours ago";
-    } else {
-      return "${diff.inDays} days ago";
-    }
   }
 }

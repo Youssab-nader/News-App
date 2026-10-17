@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:news_app/core/Config/app_keys_config.dart';
-import 'package:news_app/core/Data/Local_data/local_storage_service%20copy.dart';
-import 'package:news_app/core/Models/user_model%20copy.dart';
+import 'package:news_app/core/Data/Local_data/local_storage_service.dart';
+import 'package:news_app/core/Models/user_model.dart';
 
 class AuthService {
   Future<bool> isLogin({

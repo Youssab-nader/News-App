@@ -13,8 +13,8 @@ class HomeController extends ChangeNotifier {
   String? errorMessage;
 
   HomeController() {
+    getTopHeadLine();
     getEveryThing();
-    // getTopHeadLine();
   }
 
   void getEveryThing() async {
@@ -56,6 +56,11 @@ class HomeController extends ChangeNotifier {
       Exception(errorMessage);
     }
 
+    notifyListeners();
+  }
+
+  void setBookMark(int index) {
+    everyThingNews[index].bookMark();
     notifyListeners();
   }
 }

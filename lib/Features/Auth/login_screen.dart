@@ -1,16 +1,11 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/Features/Auth/auth_service.dart';
 import 'package:news_app/Features/Auth/sign_up_screen.dart';
-import 'package:news_app/Features/Book_Mark/main_screen.dart';
-import 'package:news_app/Features/Home/home_screen.dart';
+import 'package:news_app/Features/Home/main_screen.dart';
 import 'package:news_app/core/Components/text_field_widget.dart';
-import 'package:news_app/core/Config/app_keys_config.dart';
-import 'package:news_app/core/Data/Local_data/local_storage_service%20copy.dart';
-import 'package:news_app/core/Models/user_model%20copy.dart';
 import 'package:news_app/core/Models/validations_config.dart';
 import 'package:news_app/core/Style/app_colors.dart';
 import 'package:news_app/core/Style/app_text_styles.dart';

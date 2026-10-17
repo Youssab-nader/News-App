@@ -52,6 +52,12 @@ class AppTextStyles {
     fontWeight: FontWeight.w700,
   );
 
+  static final TextStyle newsChanelStyle  = TextStyle(
+    fontSize: 12.sp,
+    color: AppColors.primaryText,
+    fontWeight: FontWeight.w400,
+  );
+
   static final TextStyle unselectedLabelStyle = TextStyle(
     fontSize: 12.sp,
     color: AppColors.secondaryText,
