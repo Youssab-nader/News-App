@@ -20,9 +20,8 @@ class HomeScreen extends StatelessWidget {
       builder: (context, child) {
         return Consumer<HomeController>(
           builder: (BuildContext context, HomeController controller, Widget? child) {
-            final List<ArticleModel> trendingNews = controller.topHeadLineNews;
-            final List<ArticleModel> articles = controller.everyThingNews;
-
+            List<ArticleModel> trendingNews = controller.topHeadLineNews;
+            List<ArticleModel> articles = controller.everyThingNews;
             return Scaffold(
               body: (controller.everyThindLoading)
                   ? Center(child: const CircularProgressIndicator())
@@ -133,6 +132,7 @@ class HomeScreen extends StatelessWidget {
                         CategoriesWidget(),
                         Expanded(
                           child: ListView.builder(
+                            itemCount: articles.length,
                             itemBuilder: (BuildContext context, int index) {
                               final ArticleModel dailyNews = articles[index];
                               return Container(

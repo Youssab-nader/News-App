@@ -27,9 +27,8 @@ class AuthService {
       key: AppKeysConfig.userDataKey,
     );
 
-    if(userData == null){
-   return false;
- }
+    if(userData == null) return false;
+ 
 
     User savedUser = User.fromJson(jsonDecode(userData));
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/Data/Enums/category_enum.dart';
 import 'package:news_app/core/Data/Remote_data/api_config.dart';
 import 'package:news_app/core/Data/Remote_data/api_service.dart';
 import 'package:news_app/core/Models/article_model.dart';
@@ -6,7 +7,7 @@ import 'package:news_app/core/Models/article_model.dart';
 class HomeController extends ChangeNotifier {
   bool topHeadLineLoading = true;
   bool everyThindLoading = true;
-
+  Categories selectedCategory = Categories.values[0];
   ApiService apiService = ApiService();
   List<ArticleModel> everyThingNews = [];
   List<ArticleModel> topHeadLineNews = [];
@@ -14,14 +15,14 @@ class HomeController extends ChangeNotifier {
 
   HomeController() {
     getTopHeadLine();
-    getEveryThing();
+    getEveryThing(ApiConfig.q);
   }
 
-  void getEveryThing() async {
+  void getEveryThing(String q) async {
     try {
       final Map<String, dynamic> arteclesJson = await apiService.get(
         ApiConfig.everyThing,
-        params: {'q': ApiConfig.q},
+        params: {'q': q},
       );
 
       everyThingNews = (arteclesJson[ApiConfig.articlesKey] as List)
@@ -35,6 +36,13 @@ class HomeController extends ChangeNotifier {
       Exception(errorMessage);
     }
 
+    notifyListeners();
+  }
+
+  void categoryChanged(Categories newCat) {
+    selectedCategory = newCat;
+    everyThindLoading = true;
+    getEveryThing(newCat.q);
     notifyListeners();
   }
 
