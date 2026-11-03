@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/Data/Enums/category_enum.dart';
+import 'package:news_app/core/Data/Enums/request_status_enum.dart';
 import 'package:news_app/core/Data/Remote_data/api_config.dart';
 import 'package:news_app/core/Data/Remote_data/api_service.dart';
 import 'package:news_app/core/Models/article_model.dart';
 
 class HomeController extends ChangeNotifier {
-  bool topHeadLineLoading = true;
-  bool everyThindLoading = true;
+  RequestStatusEnum statusEnum = RequestStatusEnum.loading;
   Categories selectedCategory = Categories.values[0];
   ApiService apiService = ApiService();
   List<ArticleModel> everyThingNews = [];
-  List<ArticleModel> topHeadLineNews = [];
+  List<ArticleModel> trendyNews = [];
   String? errorMessage;
 
   HomeController() {
@@ -28,10 +28,10 @@ class HomeController extends ChangeNotifier {
       everyThingNews = (arteclesJson[ApiConfig.articlesKey] as List)
           .map((a) => ArticleModel.fromJson(a))
           .toList();
-      everyThindLoading = false;
+      statusEnum = RequestStatusEnum.loaded;
       errorMessage = null;
     } catch (error) {
-      everyThindLoading = false;
+      statusEnum = RequestStatusEnum.error;
       errorMessage = error.toString();
       Exception(errorMessage);
     }
@@ -41,7 +41,7 @@ class HomeController extends ChangeNotifier {
 
   void categoryChanged(Categories newCat) {
     selectedCategory = newCat;
-    everyThindLoading = true;
+    statusEnum = RequestStatusEnum.loading;
     getEveryThing(newCat.q);
     notifyListeners();
   }
@@ -53,13 +53,13 @@ class HomeController extends ChangeNotifier {
         params: {'q': ApiConfig.q},
       );
 
-      topHeadLineNews = (arteclesJson[ApiConfig.articlesKey] as List)
+      trendyNews = (arteclesJson[ApiConfig.articlesKey] as List)
           .map((a) => ArticleModel.fromJson(a))
           .toList();
-      topHeadLineLoading = false;
+      statusEnum = RequestStatusEnum.loaded;
       errorMessage = null;
     } catch (error) {
-      everyThindLoading = false;
+     statusEnum = RequestStatusEnum.error;
       errorMessage = error.toString();
       Exception(errorMessage);
     }

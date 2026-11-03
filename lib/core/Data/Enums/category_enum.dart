@@ -1,7 +1,7 @@
 enum Categories {
   topNews(q: 'news', title: 'Top News'),
   ai(q: 'ai', title: 'AI'),
-  sports(q: 'sports', title: 'Sports'),
+  sports(q: 'Football', title: 'Sports'),
   business(q: 'business', title: 'Business'),
   politics(q: 'politics', title: 'Politics');
 

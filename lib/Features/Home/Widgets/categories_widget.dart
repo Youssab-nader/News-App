@@ -23,8 +23,7 @@ class CategoriesWidget extends StatelessWidget {
                 itemCount: Categories.values.length,
                 itemBuilder: (BuildContext context, int index) {
                   Categories currentCat = Categories.values[index];
-                  bool isSelected =
-                      currentCat == controller.selectedCategory;
+                  bool isSelected = currentCat == controller.selectedCategory;
                   return Container(
                     // padding: EdgeInsets.only(bottom: 2.h),
                     decoration: isSelected
