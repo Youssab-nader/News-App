@@ -27,99 +27,99 @@ class HomeScreen extends StatelessWidget {
               case RequestStatusEnum.error:
                 return Center(child: Text(controller.errorMessage ?? ''));
               case RequestStatusEnum.loaded:
-                return Column(
-                  children: [
-                    TrendyNewsWidget(),
-                    ViewAllComponent(
-                      title: 'Category',
-                      textColor: Colors.black,
-                    ),
-                    CategoriesWidget(),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: controller.everyThingNews.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final ArticleModel dailyNews =
-                              controller.everyThingNews[index];
-                          return Container(
-                            width: 343.w,
-                            height: 70.h,
-                            margin: EdgeInsets.all(16.r),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadiusGeometry.circular(
-                                    8.r,
+                return CustomScrollView(
+                  slivers: [
+                        TrendyNewsWidget(),
+                        SliverToBoxAdapter(
+                          child: ViewAllComponent(
+                            title: 'Category',
+                            textColor: Colors.black,
+                          ),
+                        ),
+                        CategoriesWidget(),
+                      SliverList.builder(
+                          itemCount: controller.everyThingNews.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final ArticleModel dailyNews =
+                                controller.everyThingNews[index];
+                            return Container(
+                              width: 343.w,
+                              height: 70.h,
+                              margin: EdgeInsets.all(16.r),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadiusGeometry.circular(
+                                      8.r,
+                                    ),
+                                    child: Image.network(
+                                      dailyNews.urlToImage,
+                                      width: 122.w,
+                                      height: 68.h,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  child: Image.network(
-                                    dailyNews.urlToImage,
-                                    width: 122.w,
-                                    height: 68.h,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                WidthSpacing(width: 8),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        dailyNews.title,
-                                        maxLines: 2,
-                                        style: AppTextStyles.primaryStyle
-                                            .copyWith(
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            // width: 80.w,
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                  'assets/Images/cnn_logo.png',
-                                                  width: 20.w,
-                                                  height: 20.h,
-                                                ),
-                                                SizedBox(width: 4.w),
-                                                Text(
-                                                  'CNN News',
-                                                  style: AppTextStyles
-                                                      .newsChanelStyle,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(width: 6.w),
-                                          Text(
-                                            dailyNews.publishedFrom(),
-                                            style:
-                                                AppTextStyles.newsChanelStyle,
-                                          ),
-                                          Spacer(),
-                                          InkWell(
-                                            onTap: () {
-                                              controller.setBookMark(index);
-                                            },
-                                            child: dailyNews.isBookMarked
-                                                ? SvgPicture.asset(
-                                                    'assets/Icons/active_book_mark_icon.svg',
-                                                  )
-                                                : SvgPicture.asset(
-                                                    'assets/Icons/book_mark_icon.svg',
+                                  WidthSpacing(width: 8),
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          dailyNews.title,
+                                          maxLines: 2,
+                                          style: AppTextStyles.primaryStyle
+                                              .copyWith(
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              // width: 80.w,
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/Images/cnn_logo.png',
+                                                    width: 20.w,
+                                                    height: 20.h,
                                                   ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                                  SizedBox(width: 4.w),
+                                                  Text(
+                                                    'CNN News',
+                                                    style: AppTextStyles
+                                                        .newsChanelStyle,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(width: 6.w),
+                                            Text(
+                                              dailyNews.publishedFrom(),
+                                              style:
+                                                  AppTextStyles.newsChanelStyle,
+                                            ),
+                                            Spacer(),
+                                            InkWell(
+                                              onTap: () {
+                                                controller.setBookMark(index);
+                                              },
+                                              child: dailyNews.isBookMarked
+                                                  ? SvgPicture.asset(
+                                                      'assets/Icons/active_book_mark_icon.svg',
+                                                    )
+                                                  : SvgPicture.asset(
+                                                      'assets/Icons/book_mark_icon.svg',
+                                                    ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                   ],
                 );
             }

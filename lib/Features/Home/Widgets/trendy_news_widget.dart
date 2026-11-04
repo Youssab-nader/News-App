@@ -13,63 +13,65 @@ class TrendyNewsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
-      builder:
-          (BuildContext context, HomeController controller, Widget? child) {
-            return SizedBox(
-              height: 300.h,
-              width: MediaQuery.of(context).size.width,
-              child: Stack(
-                children: [
-                  Image.asset(
-                    'assets/Images/home_header_background.png',
-                    height: 242.h,
-                    fit: BoxFit.cover,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(16.w, 60.h, 0, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/Icons/texted_logo.svg',
-                          height: 17.h,
-                          width: 83.w,
-                        ),
-                        SizedBox(height: 16.h),
-                        ViewAllComponent(
-                          title: 'Trendy News',
-                          textColor: AppColors.whiteTexts,
-                        ),
-                        SizedBox(
-                          height: 140.h,
-                          width: double.infinity,
-                          child: ListView.builder(
-                            itemCount: controller.trendyNews.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (BuildContext context, int index) {
-                              final ArticleModel trendy =
-                                  controller.trendyNews[index];
-                              final String pubAt = trendy.publishedAt;
-                              final String title = trendy.title;
-                              return TopLineNewsWidget(
-                                imageSrc: trendy.urlToImage,
-                                title: title,
-                                author: trendy.author,
-                                publishedAt: pubAt,
-                                publishedFrom: trendy.publishedFrom(),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+    return SliverToBoxAdapter(
+      child: Consumer<HomeController>(
+        builder:
+            (BuildContext context, HomeController controller, Widget? child) {
+              return SizedBox(
+                height: 300.h,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      'assets/Images/home_header_background.png',
+                      height: 242.h,
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(16.w, 60.h, 0, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/Icons/texted_logo.svg',
+                            height: 17.h,
+                            width: 83.w,
+                          ),
+                          SizedBox(height: 16.h),
+                          ViewAllComponent(
+                            title: 'Trendy News',
+                            textColor: AppColors.whiteTexts,
+                          ),
+                          SizedBox(
+                            height: 140.h,
+                            width: double.infinity,
+                            child: ListView.builder(
+                              itemCount: controller.trendyNews.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (BuildContext context, int index) {
+                                final ArticleModel trendy =
+                                    controller.trendyNews[index];
+                                final String pubAt = trendy.publishedAt;
+                                final String title = trendy.title;
+                                return trendy.urlToImage == '' ? null : TopLineNewsWidget(
+                                  imageSrc: trendy.urlToImage   ,
+                                  title: title,
+                                  author: trendy.author,
+                                  publishedAt: pubAt,
+                                  publishedFrom: trendy.publishedFrom(),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+      ),
     );
   }
 }
