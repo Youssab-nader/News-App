@@ -3,10 +3,10 @@ import 'package:news_app/core/Data/Remote_data/api_service.dart';
 import 'package:news_app/core/Models/article_model.dart';
 
 class NewsRepository {
-  ApiService apiService = ApiService();
+
 
   Future<List<ArticleModel>> getTrendyNews() async {
-    final Map<String, dynamic> articlesJson = await apiService.get(
+    final Map<String, dynamic> articlesJson = await ApiService().get(
       ApiConfig.topHeadLine,
       params: {'q': ApiConfig.q},
     );
@@ -16,7 +16,7 @@ class NewsRepository {
   }
 
   Future<List<ArticleModel>> getDailyNews(String q) async {
-    final Map<String, dynamic> articlesJson = await apiService.get(
+    final Map<String, dynamic> articlesJson = await ApiService().get(
       ApiConfig.everyThing,
       params: {'q': q},
     );
