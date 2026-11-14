@@ -6,6 +6,11 @@ import 'package:news_app/core/Data/Remote_data/api_config.dart';
 import 'package:news_app/core/Models/article_model.dart';
 
 class HomeController extends ChangeNotifier {
+  HomeController(this.newsRepo) {
+    getTrendyNews();
+    getDailyNews(ApiConfig.q);
+  }
+
   RequestStatusEnum dailyNewsStatus = RequestStatusEnum.loading;
   RequestStatusEnum trendyNewsStatus = RequestStatusEnum.loading;
   Categories selectedCategory = Categories.values[0];
@@ -13,16 +18,10 @@ class HomeController extends ChangeNotifier {
   List<ArticleModel> dailyNews = [];
   List<ArticleModel> trendyNews = [];
   String? errorMessage;
-  NewsRepository newsRepo = NewsRepository();
-
-  HomeController() {
-    getTrendyNews();
-    getDailyNews(ApiConfig.q);
-  }
+  NewsRepository newsRepo;
 
   void getDailyNews(String q) async {
     try {
-      
       dailyNews = await newsRepo.getDailyNews(q);
       dailyNewsStatus = RequestStatusEnum.loaded;
       errorMessage = null;
