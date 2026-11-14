@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/Features/Home/Widgets/custom_cashed_network_image.dart';
 import 'package:news_app/core/Style/app_text_styles.dart';
 
 class TopLineNewsWidget extends StatelessWidget {
@@ -30,11 +31,10 @@ class TopLineNewsWidget extends StatelessWidget {
         borderRadius: BorderRadiusGeometry.circular(8.r),
         child: Stack(
           children: [
-            Image.network(
-              imageSrc,
+            CustomCashedNetworkImage(
+              imagePath: imageSrc,
               width: 240.w,
               height: 140.h,
-              fit: BoxFit.cover,
             ),
             Positioned.fill(
               child: Container(

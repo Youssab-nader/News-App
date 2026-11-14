@@ -1,37 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/Features/Home/Repos/news_repo.dart';
 import 'package:news_app/core/Data/Enums/category_enum.dart';
 import 'package:news_app/core/Data/Enums/request_status_enum.dart';
 import 'package:news_app/core/Data/Remote_data/api_config.dart';
-import 'package:news_app/core/Data/Remote_data/api_service.dart';
 import 'package:news_app/core/Models/article_model.dart';
 
 class HomeController extends ChangeNotifier {
-  RequestStatusEnum statusEnum = RequestStatusEnum.loading;
+  RequestStatusEnum dailyNewsStatus = RequestStatusEnum.loading;
+  RequestStatusEnum trendyNewsStatus = RequestStatusEnum.loading;
   Categories selectedCategory = Categories.values[0];
-  ApiService apiService = ApiService();
-  List<ArticleModel> everyThingNews = [];
+
+  List<ArticleModel> dailyNews = [];
   List<ArticleModel> trendyNews = [];
   String? errorMessage;
+  NewsRepository newsRepo = NewsRepository();
 
   HomeController() {
-    getTopHeadLine();
-    getEveryThing(ApiConfig.q);
+    getTrendyNews();
+    getDailyNews(ApiConfig.q);
   }
 
-  void getEveryThing(String q) async {
+  void getDailyNews(String q) async {
     try {
-      final Map<String, dynamic> arteclesJson = await apiService.get(
-        ApiConfig.everyThing,
-        params: {'q': q},
-      );
-
-      everyThingNews = (arteclesJson[ApiConfig.articlesKey] as List)
-          .map((a) => ArticleModel.fromJson(a))
-          .toList();
-      statusEnum = RequestStatusEnum.loaded;
+      
+      dailyNews = await newsRepo.getDailyNews(q);
+      dailyNewsStatus = RequestStatusEnum.loaded;
       errorMessage = null;
     } catch (error) {
-      statusEnum = RequestStatusEnum.error;
+      dailyNewsStatus = RequestStatusEnum.error;
       errorMessage = error.toString();
       Exception(errorMessage);
     }
@@ -41,34 +37,26 @@ class HomeController extends ChangeNotifier {
 
   void categoryChanged(Categories newCat) {
     selectedCategory = newCat;
-    statusEnum = RequestStatusEnum.loading;
-    getEveryThing(newCat.q);
+    dailyNewsStatus = RequestStatusEnum.loading;
+    getDailyNews(newCat.q);
     notifyListeners();
   }
 
-  void getTopHeadLine() async {
+  void getTrendyNews() async {
     try {
-      final Map<String, dynamic> arteclesJson = await apiService.get(
-        ApiConfig.topHeadLine,
-        params: {'q': ApiConfig.q},
-      );
-
-      trendyNews = (arteclesJson[ApiConfig.articlesKey] as List)
-          .map((a) => ArticleModel.fromJson(a))
-          .toList();
-      statusEnum = RequestStatusEnum.loaded;
+      trendyNews = await newsRepo.getTrendyNews();
+      trendyNewsStatus = RequestStatusEnum.loaded;
       errorMessage = null;
     } catch (error) {
-     statusEnum = RequestStatusEnum.error;
+      trendyNewsStatus = RequestStatusEnum.error;
       errorMessage = error.toString();
       Exception(errorMessage);
     }
-
     notifyListeners();
   }
 
   void setBookMark(int index) {
-    everyThingNews[index].bookMark();
+    dailyNews[index].bookMark();
     notifyListeners();
   }
 }

@@ -11,59 +11,63 @@ class CategoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Consumer<HomeController>(
-        builder:
-            (BuildContext context, HomeController controller, Widget? child) {
-              return SizedBox(
-                height: 50.h,
-                child: ListView.builder(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.only(left: 12.w),
-                  itemCount: Categories.values.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Categories currentCat = Categories.values[index];
-                    bool isSelected = currentCat == controller.selectedCategory;
-                    return Container(
-                      // padding: EdgeInsets.only(bottom: 2.h),
-                      decoration: isSelected
-                          ? BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: AppColors.primary,
-                                  width: 2,
+    return Consumer<HomeController>(
+      builder:
+          (BuildContext context, HomeController controller, Widget? child) {
+            return Column(
+              children: [
+                
+                SizedBox(
+                  height: 50.h,
+                  child: ListView.builder(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.only(left: 12.w),
+                    itemCount: Categories.values.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Categories currentCat = Categories.values[index];
+                      bool isSelected =
+                          currentCat == controller.selectedCategory;
+                      return Container(
+                        // padding: EdgeInsets.only(bottom: 2.h),
+                        decoration: isSelected
+                            ? BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: AppColors.primary,
+                                    width: 2,
+                                  ),
                                 ),
-                              ),
-                            )
-                          : null,
-                      child: TextButton(
-                        onPressed: () {
-                          controller.categoryChanged(currentCat);
-                        },
-                        child: Text(
-                          currentCat.title,
-                          style: isSelected
-                              ? AppTextStyles.selectedCategoryStyle
-                              : AppTextStyles.unSelectedCategoryStyle,
+                              )
+                            : null,
+                        child: TextButton(
+                          onPressed: () {
+                            controller.categoryChanged(currentCat);
+                          },
+                          child: Text(
+                            currentCat.title,
+                            style: isSelected
+                                ? AppTextStyles.selectedCategoryStyle
+                                : AppTextStyles.unSelectedCategoryStyle,
+                          ),
                         ),
-                      ),
-                    );
-                    // : TextButton(
-                    //     onPressed: () {
-                    //       controller.selectedCategory =
-                    //           Categories.values[index];
-                    //     },
-                    //     child: Text(
-                    //       Categories.values[index].title,
-                    //       style: AppTextStyles.unSelectedCategoryStyle,
-                    //     ),
-                    //   );
-                  },
+                      );
+                      // : TextButton(
+                      //     onPressed: () {
+                      //       controller.selectedCategory =
+                      //           Categories.values[index];
+                      //     },
+                      //     child: Text(
+                      //       Categories.values[index].title,
+                      //       style: AppTextStyles.unSelectedCategoryStyle,
+                      //     ),
+                      //   );
+                    },
+                  ),
                 ),
-              );
-            },
-      ),
+              ],
+            );
+          },
     );
   }
 }

@@ -15,33 +15,30 @@ class ViewAllComponent extends StatelessWidget {
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.r),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: AppTextStyles.skipText.copyWith(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.r),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: AppTextStyles.skipText.copyWith(
+              color: textColor ?? AppColors.whiteTexts,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
+            onPressed: onTap,
+            child: Text(
+              'View all',
+              style: AppTextStyles.underLined.copyWith(
                 color: textColor ?? AppColors.whiteTexts,
-                fontWeight: FontWeight.w800,
+                decorationColor: textColor ?? AppColors.whiteTexts,
               ),
             ),
-            TextButton(
-              style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
-              onPressed: () {},
-              child: Text(
-                'View all',
-                style: AppTextStyles.underLined.copyWith(
-                  color: textColor ?? AppColors.whiteTexts,
-                  decorationColor: textColor ?? AppColors.whiteTexts,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
