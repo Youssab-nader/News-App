@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:news_app/Features/Home/Models/home_controller.dart';
+import 'package:news_app/core/controllers/main_controller.dart';
 import 'package:news_app/Features/Home/Widgets/categories_widget.dart';
 import 'package:news_app/Features/Home/Widgets/custom_cashed_network_image.dart';
 import 'package:news_app/core/Models/article_model.dart';
@@ -17,8 +17,8 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text('Categories')),
-      body: Consumer<HomeController>(
-        builder: (BuildContext context, HomeController controller, Widget? child) {
+      body: Consumer<MainController>(
+        builder: (BuildContext context, MainController controller, Widget? child) {
           return Column(
             children: [
               CategoriesWidget(),
@@ -64,7 +64,8 @@ class CategoryScreen extends StatelessWidget {
                                           SizedBox(width: 4.w),
                                           Text(
                                             'CNN News',
-                                            style: AppTextStyles.newsChanelStyle,
+                                            style:
+                                                AppTextStyles.newsChanelStyle,
                                           ),
                                         ],
                                       ),

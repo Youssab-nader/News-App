@@ -5,24 +5,26 @@ import 'package:news_app/core/Data/Enums/request_status_enum.dart';
 import 'package:news_app/core/Data/Remote_data/api_config.dart';
 import 'package:news_app/core/Models/article_model.dart';
 
-class HomeController extends ChangeNotifier {
-  HomeController(this.newsRepo) {
+class MainController extends ChangeNotifier {
+  MainController(this.newsRepo) {
     getTrendyNews();
-    getDailyNews(ApiConfig.q);
+    getDailyNews(q: ApiConfig.q);
   }
 
   RequestStatusEnum dailyNewsStatus = RequestStatusEnum.loading;
   RequestStatusEnum trendyNewsStatus = RequestStatusEnum.loading;
+  RequestStatusEnum foundedNewsStatus = RequestStatusEnum.loading;
   Categories selectedCategory = Categories.values[0];
 
+  List<ArticleModel> foundedNewsFromSearch = [];
   List<ArticleModel> dailyNews = [];
   List<ArticleModel> trendyNews = [];
   String? errorMessage;
   NewsRepository newsRepo;
 
-  void getDailyNews(String q) async {
+  void getDailyNews({String? q}) async {
     try {
-      dailyNews = await newsRepo.getDailyNews(q);
+      dailyNews = await newsRepo.getDailyNews(q: q ?? Categories.topNews.q);
       dailyNewsStatus = RequestStatusEnum.loaded;
       errorMessage = null;
     } catch (error) {
@@ -37,7 +39,7 @@ class HomeController extends ChangeNotifier {
   void categoryChanged(Categories newCat) {
     selectedCategory = newCat;
     dailyNewsStatus = RequestStatusEnum.loading;
-    getDailyNews(newCat.q);
+    getDailyNews(q: newCat.q);
     notifyListeners();
   }
 
@@ -56,6 +58,20 @@ class HomeController extends ChangeNotifier {
 
   void setBookMark(int index) {
     dailyNews[index].bookMark();
+    notifyListeners();
+  }
+
+  void searching(String searchingWord) async {
+     try {
+      foundedNewsFromSearch = await newsRepo.getSearched(searchingWord: searchingWord);
+      foundedNewsStatus = RequestStatusEnum.loaded;
+      errorMessage = null;
+    } catch (error) {
+      foundedNewsStatus = RequestStatusEnum.error;
+      errorMessage = error.toString();
+      Exception(errorMessage);
+    }
+
     notifyListeners();
   }
 }

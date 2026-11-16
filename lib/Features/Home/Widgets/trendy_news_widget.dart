@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:news_app/Features/Home/Models/home_controller.dart';
+import 'package:news_app/core/controllers/main_controller.dart';
 import 'package:news_app/Features/Home/Widgets/top_line_news_widget.dart';
 import 'package:news_app/Features/Home/Widgets/trendy_new_shimmer.dart';
 import 'package:news_app/core/Components/view_all.dart';
@@ -17,9 +17,9 @@ class TrendyNewsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Consumer<HomeController>(
+      child: Consumer<MainController>(
         builder:
-            (BuildContext context, HomeController controller, Widget? child) {
+            (BuildContext context, MainController controller, Widget? child) {
               switch (controller.trendyNewsStatus) {
                 case RequestStatusEnum.loading:
                   return TrendyNewsShimmer();
@@ -29,32 +29,32 @@ class TrendyNewsWidget extends StatelessWidget {
 
                 default:
                   return SizedBox(
-                height: 300.h,
-                width: MediaQuery.of(context).size.width,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'assets/Images/home_header_background.png',
-                      height: 242.h,
-                      fit: BoxFit.cover,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(16.w, 60.h, 0, 0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/Icons/texted_logo.svg',
-                            height: 17.h,
-                            width: 83.w,
-                          ),
-                          SizedBox(height: 16.h),
-                          ViewAllComponent(
-                            title: 'Trendy News',
-                            textColor: AppColors.whiteTexts,
-                          ),
-                          SizedBox(
+                    height: 300.h,
+                    width: MediaQuery.of(context).size.width,
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          'assets/Images/home_header_background.png',
+                          height: 242.h,
+                          fit: BoxFit.cover,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(16.w, 60.h, 0, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/Icons/texted_logo.svg',
+                                height: 17.h,
+                                width: 83.w,
+                              ),
+                              SizedBox(height: 16.h),
+                              ViewAllComponent(
+                                title: 'Trendy News',
+                                textColor: AppColors.whiteTexts,
+                              ),
+                              SizedBox(
                                 height: 140.h,
                                 width: double.infinity,
                                 child: ListView.builder(
@@ -81,12 +81,12 @@ class TrendyNewsWidget extends StatelessWidget {
                                       },
                                 ),
                               ),
-                        ],
-                      ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              );
+                  );
               }
             },
       ),

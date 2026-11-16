@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
       builder: (_, _) {
         return MaterialApp(
           title: 'News App',
-          theme: AppThems.lightThem,
+          theme: AppThemes.lightThem,
           debugShowCheckedModeBanner: false,
-          home:  MainPage(),
+          home: MainPage(),
         );
       },
     );
@@ -34,6 +34,6 @@ class MainPage extends StatelessWidget {
   const MainPage({super.key});
   @override
   Widget build(BuildContext context) {
-    return  SplashScreen();
+    return SplashScreen();
   }
 }

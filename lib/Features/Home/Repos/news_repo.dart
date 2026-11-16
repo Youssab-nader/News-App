@@ -3,8 +3,6 @@ import 'package:news_app/core/Data/Remote_data/api_service.dart';
 import 'package:news_app/core/Models/article_model.dart';
 
 class NewsRepository {
-
-
   Future<List<ArticleModel>> getTrendyNews() async {
     final Map<String, dynamic> articlesJson = await ApiService().get(
       ApiConfig.topHeadLine,
@@ -15,10 +13,20 @@ class NewsRepository {
         .toList();
   }
 
-  Future<List<ArticleModel>> getDailyNews(String q) async {
+  Future<List<ArticleModel>> getDailyNews({String? q}) async {
     final Map<String, dynamic> articlesJson = await ApiService().get(
       ApiConfig.everyThing,
       params: {'q': q},
+    );
+    return (articlesJson[ApiConfig.articlesKey] as List)
+        .map((a) => ArticleModel.fromJson(a))
+        .toList();
+  }
+
+  Future<List<ArticleModel>> getSearched({required String searchingWord}) async {
+    final Map<String, dynamic> articlesJson = await ApiService().get(
+      ApiConfig.everyThing,
+      params: {'q': searchingWord, 'searchIn': 'title,content'},
     );
     return (articlesJson[ApiConfig.articlesKey] as List)
         .map((a) => ArticleModel.fromJson(a))

@@ -80,12 +80,15 @@ class TopLineNewsWidget extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 4.w),
-                            Text(
-                              author,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppTextStyles.buttonText.copyWith(
-                                fontWeight: FontWeight.w700,
+                            SizedBox(
+                              width: 70,
+                              child: Text(
+                                author,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTextStyles.buttonText.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ],

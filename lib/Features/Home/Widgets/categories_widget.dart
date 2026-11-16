@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/Features/Home/Models/home_controller.dart';
+import 'package:news_app/core/controllers/main_controller.dart';
 import 'package:news_app/core/Data/Enums/category_enum.dart';
 import 'package:news_app/core/Style/app_colors.dart';
 import 'package:news_app/core/Style/app_text_styles.dart';
@@ -11,12 +11,11 @@ class CategoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
+    return Consumer<MainController>(
       builder:
-          (BuildContext context, HomeController controller, Widget? child) {
+          (BuildContext context, MainController controller, Widget? child) {
             return Column(
               children: [
-                
                 SizedBox(
                   height: 50.h,
                   child: ListView.builder(

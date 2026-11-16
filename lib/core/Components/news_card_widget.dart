@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:news_app/Features/Home/Models/home_controller.dart';
+import 'package:news_app/core/controllers/main_controller.dart';
 import 'package:news_app/Features/Home/Widgets/custom_cashed_network_image.dart';
 import 'package:news_app/core/Models/article_model.dart';
 import 'package:news_app/core/Style/app_text_styles.dart';
@@ -9,17 +9,17 @@ import 'package:news_app/core/Widgets/spacing_widget.dart';
 import 'package:news_app/core/extensions/format_date_extension.dart';
 import 'package:provider/provider.dart';
 
-class DailyNews extends StatelessWidget {
-  const DailyNews({super.key});
-
+class NewsCardWidget extends StatelessWidget {
+  const NewsCardWidget({super.key, required this.allNews});
+  final List<ArticleModel> allNews;
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
-      builder: (BuildContext context, HomeController controller, Widget? child) {
-        return SliverList.builder(
-          itemCount: controller.dailyNews.length,
+    return Consumer<MainController>(
+      builder: (BuildContext context, MainController controller, Widget? child) {
+        return ListView.builder(
+          itemCount: allNews.length,
           itemBuilder: (BuildContext context, int index) {
-            final ArticleModel dailyNews = controller.dailyNews[index];
+            final ArticleModel news = allNews[index];
             return Container(
               width: 343.w,
               height: 70.h,
@@ -28,16 +28,14 @@ class DailyNews extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadiusGeometry.circular(8.r),
-                    child: CustomCashedNetworkImage(
-                      imagePath: dailyNews.urlToImage,
-                    ),
+                    child: CustomCashedNetworkImage(imagePath: news.urlToImage),
                   ),
                   WidthSpacing(width: 8),
                   Expanded(
                     child: Column(
                       children: [
                         Text(
-                          dailyNews.title,
+                          news.title,
                           maxLines: 2,
                           style: AppTextStyles.primaryStyle.copyWith(
                             overflow: TextOverflow.ellipsis,
@@ -64,7 +62,7 @@ class DailyNews extends StatelessWidget {
                             ),
                             SizedBox(width: 6.w),
                             Text(
-                              dailyNews.publishedAt.formatDate(),
+                              news.publishedAt.formatDate(),
                               style: AppTextStyles.newsChanelStyle,
                             ),
                             Spacer(),
@@ -72,7 +70,7 @@ class DailyNews extends StatelessWidget {
                               onTap: () {
                                 controller.setBookMark(index);
                               },
-                              child: dailyNews.isBookMarked
+                              child: news.isBookMarked
                                   ? SvgPicture.asset(
                                       'assets/Icons/active_book_mark_icon.svg',
                                     )

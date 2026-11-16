@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:news_app/Features/Book_Mark/book_mark_screen.dart';
-import 'package:news_app/Features/Home/Models/home_controller.dart';
+import 'package:news_app/core/controllers/main_controller.dart';
+import 'package:news_app/Features/Home/Repos/news_repo.dart';
 import 'package:news_app/Features/Home/home_screen.dart';
 import 'package:news_app/Features/Profile/profile_screen.dart';
 import 'package:news_app/Features/Search/search_screen.dart';
@@ -28,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => HomeController(),
+      create: (_) => MainController(NewsRepository()),
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
