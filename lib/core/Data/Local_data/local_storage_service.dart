@@ -1,4 +1,3 @@
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesManager {
@@ -17,23 +16,29 @@ class PreferencesManager {
   }
 
   //Set
-   Future<bool> setString({required String key, required String value}) async {
-     return await _pref.setString(key, value);
+  Future<bool> setString({required String key, required String value}) async {
+    return await _pref.setString(key, value);
+  }
+
+  Future<bool> setBool({required String key, required bool value}) async {
+    return await _pref.setBool(key, value);
+  }
+
+  bool? getBool({required String key}) {
+    return _pref.getBool(key);
   }
 
   // Get
   String? getString({required String key}) {
-       return _pref.getString(key);
-   
+    return _pref.getString(key);
   }
 
   // Delete
   Future<bool> remove({required String key}) async {
-   return await _pref.remove(key);
+    return await _pref.remove(key);
   }
 
-  Future<bool> clear({required String key}) async {
-   return await _pref.clear();
-
+  Future<bool> clear() async {
+    return await _pref.clear();
   }
 }

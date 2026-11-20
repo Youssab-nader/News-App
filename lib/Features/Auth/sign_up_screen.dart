@@ -131,17 +131,18 @@ class SignUpScreen extends StatelessWidget {
   }
 
   Future<bool> signUp() async {
-    final User newUser = User(
-      email: _emailController.text,
-      passWord: _passwordController.text,
-      isLogined: true,
+    await PreferencesManager().setBool(
+      key: AppKeysConfig.userIsLoginedKey,
+      value: true,
     );
-    final Map<String, dynamic> userJsonData = newUser.toJson();
-    final String userDataString = jsonEncode(userJsonData);
 
     await PreferencesManager().setString(
-      key: AppKeysConfig.userDataKey,
-      value: userDataString,
+      key: AppKeysConfig.userEmailKey,
+      value: _emailController.text,
+    );
+    await PreferencesManager().setString(
+      key: AppKeysConfig.userPasswordKey,
+      value: _passwordController.text,
     );
 
     return true;

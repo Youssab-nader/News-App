@@ -10,29 +10,33 @@ class ProfileInfoItemWidget extends StatelessWidget {
     super.key,
     required this.iconPath,
     required this.itemName,
-    this.textColor,
+    this.textColor, this.onTap,
   });
   final String iconPath;
   final String itemName;
   final Color? textColor;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 56.h,
-      width: 343.w,
-      child: Row(
-        children: [
-          SvgPicture.asset(iconPath),
-          WidthSpacing(width: 16),
-          Text(
-            itemName,
-            style: AppTextStyles.primaryStyle.copyWith(
-              color: textColor ?? AppColors.primaryText,
+    return InkWell(
+      onTap: onTap,
+      child: SizedBox(
+        height: 56.h,
+        width: 343.w,
+        child: Row(
+          children: [
+            SvgPicture.asset(iconPath),
+            WidthSpacing(width: 16),
+            Text(
+              itemName,
+              style: AppTextStyles.primaryStyle.copyWith(
+                color: textColor ?? AppColors.primaryText,
+              ),
             ),
-          ),
-          Spacer(),
-          Icon(Icons.arrow_forward_ios, color: textColor),
-        ],
+            Spacer(),
+            Icon(Icons.arrow_forward_ios, color: textColor),
+          ],
+        ),
       ),
     );
   }

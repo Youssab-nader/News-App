@@ -1,37 +1,39 @@
-import 'dart:convert';
 
 import 'package:news_app/core/Config/app_keys_config.dart';
 import 'package:news_app/core/Data/Local_data/local_storage_service.dart';
-import 'package:news_app/core/Models/user_model.dart';
 
 class AuthService {
   Future<bool> isLogin({
     required String email,
     required String password,
   }) async {
-    String? userData = PreferencesManager().getString(
-      key: AppKeysConfig.userDataKey,
+    String? userEmail = PreferencesManager().getString(
+      key: AppKeysConfig.userEmailKey,
+    );
+    String? userPassword = PreferencesManager().getString(
+      key: AppKeysConfig.userPasswordKey,
     );
 
-    if (userData == null) {
+    if (userEmail == null || userPassword == null) {
       return false;
     }
 
-    User savedUser = User.fromJson(jsonDecode(userData));
-
-    return savedUser.email == email && savedUser.passWord == password;
+    return userEmail == email && userPassword == password;
   }
 
-  bool isSaved()  {
-    String? userData = PreferencesManager().getString(
-      key: AppKeysConfig.userDataKey,
+  bool isSaved() {
+    String? userEmail = PreferencesManager().getString(
+      key: AppKeysConfig.userEmailKey,
+    );
+    String? userPassword = PreferencesManager().getString(
+      key: AppKeysConfig.userPasswordKey,
     );
 
-    if(userData == null) return false;
- 
+    if (userEmail == null || userPassword == null) {
+      return false;
+    }
 
-    User savedUser = User.fromJson(jsonDecode(userData));
-
-    return savedUser.isLogined;
+    return PreferencesManager().getBool(key: AppKeysConfig.userIsLoginedKey) ??
+        false;
   }
 }
