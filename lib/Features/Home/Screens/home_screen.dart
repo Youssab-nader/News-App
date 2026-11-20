@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/controllers/main_controller.dart';
 import 'package:news_app/Features/Home/Widgets/categories_widget.dart';
 import 'package:news_app/Features/Home/Widgets/trendy_news_widget.dart';
-import 'package:news_app/Features/Home/category_screen.dart';
+import 'package:news_app/Features/Home/Screens/category_screen.dart';
 import 'package:news_app/core/Components/daily_nes_sliver.dart';
 import 'package:news_app/core/Components/view_all.dart';
 import 'package:provider/provider.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:news_app/Features/Book_Mark/book_mark_screen.dart';
 import 'package:news_app/core/controllers/main_controller.dart';
 import 'package:news_app/Features/Home/Repos/news_repo.dart';
-import 'package:news_app/Features/Home/home_screen.dart';
+import 'package:news_app/Features/Home/Screens/home_screen.dart';
 import 'package:news_app/Features/Profile/profile_screen.dart';
 import 'package:news_app/Features/Search/search_screen.dart';
 import 'package:news_app/core/Style/app_colors.dart';
