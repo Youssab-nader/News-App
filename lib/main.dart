@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/Features/Splash%20Screen/spash_screen.dart';
+import 'package:news_app/Features/Splash%20Screen/splash_screen.dart';
 import 'package:news_app/core/Data/Local_data/local_storage_service.dart';
 import 'package:news_app/core/Style/app_thems.dart';
 

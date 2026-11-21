@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:news_app/Features/Home/Screens/news_deatails_screen.dart';
 import 'package:news_app/core/controllers/main_controller.dart';
 import 'package:news_app/Features/Home/Widgets/top_line_news_widget.dart';
 import 'package:news_app/Features/Home/Widgets/trendy_new_shimmer.dart';
@@ -69,14 +70,31 @@ class TrendyNewsWidget extends StatelessWidget {
                                         final String title = trendy.title;
                                         return trendy.urlToImage == ''
                                             ? null
-                                            : TopLineNewsWidget(
-                                                imageSrc: trendy.urlToImage,
-                                                title: title,
-                                                author: trendy.author,
-                                                publishedAt: pubAt,
-                                                publishedFrom: trendy
-                                                    .publishedAt
-                                                    .formatDate(),
+                                            : GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder:
+                                                          (
+                                                            BuildContext
+                                                            context,
+                                                          ) =>
+                                                              NewsDeataolsScreen(
+                                                                model: trendy,
+                                                              ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: TopLineNewsWidget(
+                                                  imageSrc: trendy.urlToImage,
+                                                  title: title,
+                                                  author: trendy.author,
+                                                  publishedAt: pubAt,
+                                                  publishedFrom: trendy
+                                                      .publishedAt
+                                                      .formatDate(),
+                                                ),
                                               );
                                       },
                                 ),

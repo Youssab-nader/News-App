@@ -19,7 +19,8 @@ class CustomCashedNetworkImage extends StatelessWidget {
       imageUrl: imagePath,
       height: height ?? 70,
       width: width ?? 125,
-      
+      fit: BoxFit.cover,
+
       placeholder: (context, url) => Shimmer.fromColors(
         baseColor: Colors.grey.shade800,
         highlightColor: Colors.grey.shade600,
@@ -28,7 +29,6 @@ class CustomCashedNetworkImage extends StatelessWidget {
           width: width ?? 125,
           color: AppColors.whiteTexts,
         ),
-        
       ),
       errorWidget: (context, url, error) => Icon(Icons.error),
     );
