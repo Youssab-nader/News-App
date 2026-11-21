@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/Features/Auth/login_screen.dart';
@@ -22,63 +23,75 @@ class ProfileInfoWidget extends StatelessWidget {
             ProfileDataController controller,
             Widget? child,
           ) {
-            return SizedBox(
-              width: 343.w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  HightSpacing(hight: 16),
-                  Text(
-                    'Profile Info',
-                    style: AppTextStyles.primaryStyle.copyWith(fontSize: 14.sp),
-                  ),
-                  HightSpacing(hight: 8),
-                  ProfileInfoItemWidget(
-                    iconPath: 'assets/Icons/profile_icon.svg',
-                    itemName: 'Personal Info',
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        backgroundColor: Colors.transparent,
-                        isScrollControlled: true,
-                        builder: (BuildContext context) =>
-                            EditProfileInfoBootmSheet(),
-                      ).then((value) {
-                        controller.getUserData();
-                      });
-                    },
-                  ),
-                  Divider(color: Color(0xffD1DAD6)),
-                  ProfileInfoItemWidget(
-                    iconPath: 'assets/Icons/language_icon.svg',
-                    itemName: 'Language',
-                  ),
-                  Divider(color: Color(0xffD1DAD6)),
-                  ProfileInfoItemWidget(
-                    iconPath: 'assets/Icons/country_icon.svg',
-                    itemName: 'Country',
-                  ),
-                  Divider(color: Color(0xffD1DAD6)),
-                  ProfileInfoItemWidget(
-                    iconPath: 'assets/Icons/terms_icon.svg',
-                    itemName: 'Terms & Conditions',
-                  ),
-                  Divider(color: Color(0xffD1DAD6)),
-                  ProfileInfoItemWidget(
-                    iconPath: 'assets/Icons/logout_icon.svg',
-                    itemName: 'Logout',
-                    textColor: AppColors.primary,
-                    onTap: () {
-                      PreferencesManager().clear();
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => LoginScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+            return SingleChildScrollView(
+              child: SizedBox(
+                width: 343.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HightSpacing(hight: 16),
+                    Text(
+                      'Profile Info',
+                      style: AppTextStyles.primaryStyle.copyWith(
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    HightSpacing(hight: 8),
+                    ProfileInfoItemWidget(
+                      iconPath: 'assets/Icons/profile_icon.svg',
+                      itemName: 'Personal Info',
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          isScrollControlled: true,
+                          builder: (BuildContext context) =>
+                              EditProfileInfoBootmSheet(),
+                        ).then((value) {
+                          controller.getUserData();
+                        });
+                      },
+                    ),
+                    Divider(color: Color(0xffD1DAD6)),
+                    ProfileInfoItemWidget(
+                      iconPath: 'assets/Icons/language_icon.svg',
+                      itemName: 'Language',
+                    ),
+                    Divider(color: Color(0xffD1DAD6)),
+                    ProfileInfoItemWidget(
+                      iconPath: 'assets/Icons/country_icon.svg',
+                      itemName: controller.userCountry ?? 'Country',
+                      onTap: () {
+                        showCountryPicker(
+                          context: context,
+                          onSelect: (Country country) {
+                            controller.saveUserCountry(country);
+                          },
+                        );
+                      },
+                    ),
+                    Divider(color: Color(0xffD1DAD6)),
+                    ProfileInfoItemWidget(
+                      iconPath: 'assets/Icons/terms_icon.svg',
+                      itemName: 'Terms & Conditions',
+                    ),
+                    Divider(color: Color(0xffD1DAD6)),
+                    ProfileInfoItemWidget(
+                      iconPath: 'assets/Icons/logout_icon.svg',
+                      itemName: 'Logout',
+                      textColor: AppColors.primary,
+                      onTap: () {
+                        PreferencesManager().clear();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => LoginScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             );
           },

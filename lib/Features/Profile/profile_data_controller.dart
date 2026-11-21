@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:news_app/core/Config/app_keys_config.dart';
@@ -20,10 +21,10 @@ class ProfileDataController extends ChangeNotifier {
 
   bool isPickingImage = false;
 
-  final String? userLanguage = null;
-  final String? userCountry = null;
+  String? userLanguage;
+  String? userCountry;
 
-  final ImagePicker picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
 
   ProfileDataController() {
     if (lastUserProfileImagePath != null) {
@@ -39,6 +40,19 @@ class ProfileDataController extends ChangeNotifier {
     userEmail =
         PreferencesManager().getString(key: AppKeysConfig.userEmailKey) ??
         'Email';
+    userCountry =
+        PreferencesManager().getString(key: AppKeysConfig.userCountryNameKey) ??
+        'Country';
+    notifyListeners();
+  }
+
+  void saveUserCountry(Country selectedCountry) async {
+    await PreferencesManager().setString(
+      key: AppKeysConfig.userCountryNameKey,
+      value: selectedCountry.name,
+    );
+    userCountry = selectedCountry.name;
+
     notifyListeners();
   }
 
@@ -49,7 +63,7 @@ class ProfileDataController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final XFile? pickedImage = await picker.pickImage(
+      final XFile? pickedImage = await _picker.pickImage(
         source: ImageSource.gallery,
       );
 

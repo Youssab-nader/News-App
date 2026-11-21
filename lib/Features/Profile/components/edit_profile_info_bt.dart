@@ -53,57 +53,59 @@ class _EditProfileInfoBootmSheetState extends State<EditProfileInfoBootmSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.70,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: Color(0xffF5F5F5),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.r),
-          topRight: Radius.circular(16.r),
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.50,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Color(0xffF5F5F5),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.r),
+            topRight: Radius.circular(16.r),
+          ),
         ),
-      ),
-      child: Column(
-        children: [
-          Form(
-            key: _formKey,
-            child: SizedBox(
-              width: 343.w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  HightSpacing(hight: 16),
-                  Center(
-                    child: SvgPicture.asset('assets/Icons/drag_handle.svg'),
-                  ),
-                  HightSpacing(hight: 24),
-                  Text('Profile Info', style: AppTextStyles.primaryStyle),
-                  HightSpacing(hight: 8),
-                  TextFieldWidget(
-                    textController: nameEditingController,
-                    validationString: ValidationsConfig.nameValidation,
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
-                  ),
-                  TextFieldWidget(
-                    textController: emailEditingController,
-                    validationString: ValidationsConfig.emailValidation,
-                    labelText: 'Email',
-                    hintText: 'Enter Your Email',
-                  ),
-                  HightSpacing(hight: 24),
-                  ElevatedButton(
-                    onPressed: () {
-                      _saveData();
-                      Navigator.pop(context);
-                    },
-                    child: Text('Save', style: AppTextStyles.buttonText),
-                  ),
-                ],
+        child: Column(
+          children: [
+            Form(
+              key: _formKey,
+              child: SizedBox(
+                width: 343.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HightSpacing(hight: 16),
+                    Center(
+                      child: SvgPicture.asset('assets/Icons/drag_handle.svg'),
+                    ),
+                    HightSpacing(hight: 24),
+                    Text('Profile Info', style: AppTextStyles.primaryStyle),
+                    HightSpacing(hight: 8),
+                    TextFieldWidget(
+                      textController: nameEditingController,
+                      validationString: ValidationsConfig.nameValidation,
+                      labelText: 'User Name',
+                      hintText: 'Enter Your Name',
+                    ),
+                    TextFieldWidget(
+                      textController: emailEditingController,
+                      validationString: ValidationsConfig.emailValidation,
+                      labelText: 'Email',
+                      hintText: 'Enter Your Email',
+                    ),
+                    HightSpacing(hight: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        _saveData();
+                        Navigator.pop(context);
+                      },
+                      child: Text('Save', style: AppTextStyles.buttonText),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -15,9 +15,11 @@ class ProfileScreen extends StatelessWidget {
       builder: (context, child) {
         return Scaffold(
           appBar: AppBar(centerTitle: true, title: Text('Profile')),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 30.r),
-            child: Column(children: [ProfileImage(), ProfileInfoWidget()]),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 30.r),
+              child: Column(children: [ProfileImage(), ProfileInfoWidget()]),
+            ),
           ),
         );
       },

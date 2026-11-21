@@ -1,8 +1,9 @@
 class AppKeysConfig {
-  static final userDataKey = 'userData';
-  static final userNameKey = 'userName';
-  static final userProfileImageKey = 'userProfileImageKey';
-  static final userEmailKey = 'userEmail';
-  static final userIsLoginedKey = 'isLogined';
-  static final userPasswordKey = 'passWord';
+  static final String userDataKey = 'userData';
+  static final String userNameKey = 'userName';
+  static final String userProfileImageKey = 'userProfileImage';
+  static final String userEmailKey = 'userEmail';
+  static final String userIsLoginedKey = 'isLogined';
+  static final String userPasswordKey = 'passWord';
+  static String userCountryNameKey = 'userCountryName';
 }
